@@ -43,7 +43,7 @@ def login(accounts):
     account_number = input("Enter your account number: ")
     if account_number not in accounts:
         print("Invalid account number.")
-        return None, None
+        return account_number, None
     return account_number, accounts[account_number]
 
 def deposit(account):
@@ -54,7 +54,7 @@ def deposit(account):
     amount = float(input("Enter the amount to deposit: "))
     if amount > 0:
         account['balance'] += amount
-        print(f"Deposited ${amount:.2f}. Current balance for {account['name']}: ${account['balance']:.2f}")
+        print(f"Deposited ${amount:.2f}. Current balance: ${account['balance']:.2f}")
     else:
         print("Invalid deposit amount.")
 
@@ -67,9 +67,9 @@ def withdraw(account):
     if amount > 0:
         if account['balance'] - amount >= MINIMUM_BALANCE:
             account['balance'] -= amount
-            print(f"Withdrew ${amount:.2f}. Current balance for {account['name']}: ${account['balance']:.2f}")
+            print(f"Withdrew ${amount:.2f}. Current balance: ${account['balance']:.2f}")
         else:
-            print(f"Withdrawal failed. Minimum balance of ${MINIMUM_BALANCE:.2f} must be maintained for {account['name']}.")
+            print(f"Withdrawal failed. Minimum balance of ${MINIMUM_BALANCE:.2f} must be maintained.")
     else:
         print("Invalid withdrawal amount.")
 
@@ -78,9 +78,9 @@ def check_balance(account):
     if not account:
         print("Please log in first.")
         return
-    print(f"Current balance for {account['name']}: ${account['balance']:.2f}")
+    print(f"Current balance: ${account['balance']:.2f}")
     if account['balance'] < MINIMUM_BALANCE:
-        print(f"Warning: Your balance is below the minimum balance of ${MINIMUM_BALANCE:.2f} for {account['name']}.")
+        print(f"Warning: Your balance is below the minimum balance of ${MINIMUM_BALANCE:.2f}.")
 
 def main():
     """Main function to run the banking system."""
@@ -100,7 +100,7 @@ def main():
             account_number, current_account = login(accounts)
             if current_account:
                 while True:
-                    print(f"\nAccount Menu for {current_account['name']}:")
+                    print("\nAccount Menu:")
                     print("1. Deposit")
                     print("2. Withdraw")
                     print("3. Check Balance")
